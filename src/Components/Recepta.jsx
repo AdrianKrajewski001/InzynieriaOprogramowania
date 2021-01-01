@@ -1,6 +1,6 @@
 import React, { Component,useContext, useEffect, useState } from "react";
 import { Link } from "@reach/router";
-import { auth, signInWithGoogle, generateUserDocument } from "../firebase";
+import { auth, signInWithGoogle, generateUserDocument, firestore } from "../firebase";
 import { UserContext } from "../providers/UserProvider";
 import {database} from "../firebase"
 
@@ -10,19 +10,24 @@ const Recepta = () => {
   
   const [displayName, setDisplayName] = useState("Test");
   const [date, setDate]=useState("");
-  const [leki,setLeki]=useState("");
+  const [prescription,setprescription]=useState("");
   const [PESEL, setPESEL]=useState("");
   const [error, setError] = useState(null);
   let data =new Date();
   
   
   const sendData=()=>{
-    if(PESEL.length==11 && onlyDigits(PESEL)==true)
+    if(PESEL.length==11 && onlyDigits(PESEL)==true && [displayName&&prescription&&email]!="")
+
     {writeUserData()}
     else
-    setError("Podaj PESEL który ma 11 cyfr")
+    setError("Dane nieprawidlowe")
   }
   
+
+
+ 
+
 
   function onlyDigits(s) {
     for (let i = s.length - 1; i >= 0; i--) {
@@ -35,9 +40,12 @@ const Recepta = () => {
 
 const writeUserData= async()=> {
  
-    {database.ref('Recepty/' + user.uid+"/"+ data.getTime()).set({
-      Objaw: displayName,
+    {firestore.collection('Recepty').doc(data.getTime().toString()).set({
+      name: displayName,
      email: email,
+     prescription:prescription,
+     PESEL:PESEL,
+     DoktorID:user.uid
      
     })}
     setError("Wyslano")
@@ -63,8 +71,8 @@ const writeUserData= async()=> {
    
     } else if (name === "displayName") {
       setDisplayName(value);
-    }else if (name=== "Leki"){
-      setLeki(value);
+    }else if (name=== "prescription"){
+      setprescription(value);
     }else if (name=== "PESEL"){
       setPESEL(value);
     }
@@ -121,10 +129,10 @@ const writeUserData= async()=> {
 <textarea
     type="text"
     className="my-1 p-1  border border-red-400 w-full"
-    name="Leki"
-    value={leki}
-    placeholder="Leki"
-    id="Leki"
+    name="prescription"
+    value={prescription}
+    placeholder="prescription"
+    id="prescription"
     onChange={event => onChangeHandler(event)}
   />
 <button className="border border-red-400" onClick={()=>sendData()}>Wyślij</button>
