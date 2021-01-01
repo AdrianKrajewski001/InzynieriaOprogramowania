@@ -1,4 +1,4 @@
-import React, { useContext, Children } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../providers/UserProvider";
 import { navigate, Link } from "@reach/router";
 import { auth } from "../firebase";
@@ -46,12 +46,12 @@ const ProfilePage = props => {
                         Doctors
                       </a>
                     </Link>
-                    <Link to="/perscriptions">
+                    <Link to="/Prescriptions">
                       <a
                         href="#"
                         className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                       >
-                        Perscriptions
+                        Prescriptions
                       </a>
                     </Link>
                     <Link to="/calendar">
@@ -182,7 +182,7 @@ const ProfilePage = props => {
                 href="#"
                 className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               >
-                Perscription
+                Prescription
               </a>
 
               <a
