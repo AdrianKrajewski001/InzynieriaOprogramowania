@@ -6,21 +6,30 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
+  const [userType, setUserType] = useState("");
   const [error, setError] = useState(null);
 
-  const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
+  const createUserWithEmailAndPasswordHandler = async (
+    event,
+    email,
+    password
+  ) => {
     event.preventDefault();
-    try{
-      const {user} = await auth.createUserWithEmailAndPassword(email, password);
-      generateUserDocument(user, {displayName});
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      generateUserDocument(user, { displayName });
+      generateUserDocument(user, { userType });
+    } catch (error) {
+      setError("Error Signing up with email and password");
     }
-    catch(error){
-      setError('Error Signing up with email and password');
-    }
-      
+
     setEmail("");
     setPassword("");
     setDisplayName("");
+    setUserType("");
   };
 
   const onChangeHandler = event => {
@@ -32,6 +41,8 @@ const SignUp = () => {
       setPassword(value);
     } else if (name === "displayName") {
       setDisplayName(value);
+    } else if (name === "userType") {
+      setUserType(value);
     }
   };
 
@@ -81,8 +92,32 @@ const SignUp = () => {
             id="userPassword"
             onChange={event => onChangeHandler(event)}
           />
+          <label htmlFor="userType" className="block">
+            Who are you?
+          </label>
+
+          <input
+            type="radio"
+            name="userType"
+            value="Patient"
+            placeholder="Patient"
+            id="patient"
+            onChange={event => onChangeHandler(event)}
+          />
+          <label>Patient</label>
+
+          <input
+            type="radio"
+            name="userType"
+            value="Doctor"
+            placeholder="Doctor"
+            id="doctor"
+            onChange={event => onChangeHandler(event)}
+          />
+
+          <label>Doctor</label>
           <button
-            className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
+            className="bg-blue-400 hover:bg-blue-500 w-full py-2 text-white"
             onClick={event => {
               createUserWithEmailAndPasswordHandler(event, email, password);
             }}

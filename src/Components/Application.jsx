@@ -6,18 +6,27 @@ import UserProvider from "../providers/UserProvider";
 import ProfilePage from "./ProfilePage";
 import { UserContext } from "../providers/UserProvider";
 import PasswordReset from "./PasswordReset";
+import Doctors from "./Doctors";
+import Perscriptions from "./Perscriptions";
+import Calendar from "./Calendar";
+import Reports from "./Reports";
+
 function Application() {
   const user = useContext(UserContext);
-  return (
-        user ?
-        <ProfilePage />
-      :
-        <Router>
-          <SignUp path="signUp" />
-          <SignIn path="/" />
-          <PasswordReset path = "passwordReset" />
-        </Router>
-      
+  return user ? (
+    <Router>
+      <ProfilePage path="/" />
+      <Doctors path="/doctors" />
+      <Perscriptions path="/perscriptions" />
+      <Calendar path="/calendar" />
+      <Reports path="/reports" />
+    </Router>
+  ) : (
+    <Router>
+      <SignUp path="signUp" />
+      <SignIn path="/" />
+      <PasswordReset path="passwordReset" />
+    </Router>
   );
 }
 

@@ -21,8 +21,10 @@ const PasswordReset = () => {
     auth
       .sendPasswordResetEmail(email)
       .then(() => {
-          setEmailHasBeenSent(true);
-        setTimeout(() => {setEmailHasBeenSent(false)}, 3000);
+        setEmailHasBeenSent(true);
+        setTimeout(() => {
+          setEmailHasBeenSent(false);
+        }, 3000);
       })
       .catch(() => {
         setError("Error resetting password");
