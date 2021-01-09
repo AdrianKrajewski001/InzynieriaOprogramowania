@@ -11,17 +11,21 @@ import Prescriptions from "./Prescriptions";
 import Calendar from "./Calendar";
 import Reports from "./Reports";
 import Search from "./Search";
-
+import Dashboard from "./Dashboard";
+import Settings from "./Settings";
+import Recepta from "./Recepta";
 function Application() {
   const user = useContext(UserContext);
   return user ? (
     <Router>
-      <ProfilePage path="/" />
+      <Dashboard path="/" />
       <Doctors path="/doctors" />
-      <Prescriptions path="/Prescriptions" />
+      <Prescriptions path="/prescriptions" />
       <Calendar path="/calendar" />
       <Reports path="/reports" />
-      <Search path="search" />
+      <Search path="/search" />
+      <Settings path="/settings" />
+      <Recepta path="/recepta" />
     </Router>
   ) : (
     <Router>

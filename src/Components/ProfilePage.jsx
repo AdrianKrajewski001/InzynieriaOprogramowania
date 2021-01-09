@@ -6,8 +6,6 @@ const ProfilePage = props => {
   const user = useContext(UserContext);
   const { photoURL, displayName, email, userType } = user;
 
-  console.log(user);
-
   return (
     <>
       <div>
@@ -29,24 +27,24 @@ const ProfilePage = props => {
                         href="#"
                         className={
                           " text-white px-3 py-2 rounded-md text-sm font-medium " +
-                          (1 == "/" ? "bg-gray-700" : "")
+                          (1 ? "bg-gray-700" : "")
                         }
                       >
-                        Dashboard{console.log(props.path)}
+                        Dashboard
                       </a>
                     </Link>
                     <Link to="/doctors">
                       <a
                         href="#"
                         className={
-                          " text-white px-3 py-2 rounded-md text-sm font-medium " +
-                          (1 == "/doctors" ? "bg-gray-700" : "")
+                          " text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium " +
+                          (false ? "bg-gray-700" : "")
                         }
                       >
                         Doctors
                       </a>
                     </Link>
-                    <Link to="/Prescriptions">
+                    <Link to="/prescriptions">
                       <a
                         href="#"
                         className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -100,20 +98,22 @@ const ProfilePage = props => {
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
                     >
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        role="menuitem"
-                      >
-                        Settings
-                      </a>
-
+                      <Link to="/settings">
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          role="menuitem"
+                        >
+                          Settings
+                        </a>
+                      </Link>
                       <a
                         href="#"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
                         onClick={() => {
                           auth.signOut();
+                          navigate("/");
                         }}
                       >
                         Sign out
@@ -221,22 +221,25 @@ const ProfilePage = props => {
                 </div>
               </div>
               <div className="mt-3 px-2 space-y-1 opacity-0 hover:opacity-100">
-                <a
-                  href="#"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                >
-                  Settings
-                </a>
-
-                <a
-                  href="#"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                  onClick={() => {
-                    auth.signOut();
-                  }}
-                >
-                  Sign out
-                </a>
+                <Link to="/settings">
+                  <a
+                    href="#"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                  >
+                    Settings
+                  </a>
+                </Link>
+                <Link to="/">
+                  <a
+                    href="#"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                    onClick={() => {
+                      auth.signOut();
+                    }}
+                  >
+                    Sign out
+                  </a>
+                </Link>
               </div>
             </div>
           </div>

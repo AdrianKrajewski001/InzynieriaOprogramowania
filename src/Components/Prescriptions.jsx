@@ -1,5 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import ProfilePage from "./ProfilePage";
+import Recepta from "./Recepta";
+import PrescriptionsList from "./PrescriptionsList";
+import { UserContext } from "../providers/UserProvider";
+
 export default function Prescriptions() {
-  return <ProfilePage>PRESCRIPTIONS</ProfilePage>;
+  const user = useContext(UserContext);
+  let { userType } = user;
+  return (
+    <ProfilePage>
+      {userType === "Doctor" ? <Recepta /> : <PrescriptionsList />}
+    </ProfilePage>
+  );
 }

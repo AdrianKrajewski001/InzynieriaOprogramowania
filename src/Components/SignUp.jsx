@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Link } from "@reach/router";
 import { auth, signInWithGoogle, generateUserDocument } from "../firebase";
+import { navigate } from "@reach/router/lib/history";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [userType, setUserType] = useState("");
+  const [userType, setUserType] = useState("Patient");
   const [error, setError] = useState(null);
 
   const createUserWithEmailAndPasswordHandler = async (
@@ -116,10 +117,12 @@ const SignUp = () => {
           />
 
           <label>Doctor</label>
+
           <button
             className="bg-blue-400 hover:bg-blue-500 w-full py-2 text-white"
             onClick={event => {
               createUserWithEmailAndPasswordHandler(event, email, password);
+              navigate("/");
             }}
           >
             Sign up

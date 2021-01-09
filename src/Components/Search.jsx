@@ -4,8 +4,8 @@ import { auth, signInWithGoogle, generateUserDocument } from "../firebase";
 import { firestore } from "../firebase";
 import testowaFunkcja from "../App.js";
 const Search = () => {
-  var Specialization = [];
-  var Doctor = [];
+  let Specialization = [];
+  let Doctor = [];
   const [Doctors, SetDoctors] = useState(Doctor);
   const [filteredUsers, setUsers] = React.useState(Specialization);
 
@@ -39,7 +39,7 @@ const Search = () => {
   const downloadDoctorsfromDatabase = async () => {
     const citiesRef = firestore.collection("users");
     const snapshot = await citiesRef
-      .where("specjalizacja", "array-contains", "kardiolog")
+      .where("specjalizacja", "array-contains", Specialization[0]) //do poprawy
       .get();
     if (snapshot.empty) {
       console.log("No matching documents.");
@@ -48,7 +48,7 @@ const Search = () => {
 
     snapshot.forEach(async doc => {
       console.log(doc.id, "=>", doc.data());
-      var x = doc.data();
+      let x = doc.data();
 
       await Doctor.push(x.displayName);
     });
@@ -72,21 +72,23 @@ const Search = () => {
 
   return (
     <div>
-      <input className="border border-blue-400" id="textbox" />
+      <div className="p-4 max-w-xs bg-gray-200 border-4 rounded-l-none rounded-tr-none rounded-lg">
+        <input className="border border-blue-400 mr-2" id="textbox" />
 
-      <button
-        className="border border-blue-500"
-        onClick={() => downloadSpecializationsFromDatabase()}
-      >
-        Szukaj
-      </button>
+        <button
+          className="border border-blue-500 "
+          onClick={() => downloadSpecializationsFromDatabase()}
+        >
+          Szukaj
+        </button>
 
-      <UsersList users={filteredUsers} />
+        <UsersList users={filteredUsers} />
 
-      <div>
-        <b>Lista lekarzy:</b>
+        <div>
+          <b>Lista lekarzy:</b>
+        </div>
+        <UsersList users={Doctors} />
       </div>
-      <UsersList users={Doctors} />
     </div>
   );
 };

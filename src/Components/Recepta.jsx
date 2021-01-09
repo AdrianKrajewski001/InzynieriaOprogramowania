@@ -13,7 +13,7 @@ const Recepta = () => {
   const user = useContext(UserContext);
   const [email, setEmail] = useState("");
 
-  const [displayName, setDisplayName] = useState("Test");
+  const [displayName, setDisplayName] = useState("");
   const [date, setDate] = useState("");
   const [prescription, setprescription] = useState("");
   const [PESEL, setPESEL] = useState("");
@@ -48,7 +48,9 @@ const Recepta = () => {
           email: email,
           prescription: prescription,
           PESEL: PESEL,
-          DoktorID: user.uid
+          DoktorID: user.uid,
+          doctorName: user.displayName,
+          date: data.getTime()
         });
     }
     setError("Wyslano");
@@ -69,17 +71,17 @@ const Recepta = () => {
   };
 
   return (
-    <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
+    <div className="p-4 max-w-xs bg-gray-200 border-4 rounded-lg mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
       {error !== null && (
         <div className="py-4 bg-red-600 w-full text-white text-center mb-3">
           {error}
         </div>
       )}
 
-      <label>E-mail</label>
+      <label className="text-lg">E-mail</label>
       <input
         type="text"
-        className="my-1 p-1  border border-red-400 w-full"
+        className="my-1 p-1  border border-gray-600 w-full"
         name="email"
         value={email}
         placeholder="Email"
@@ -87,10 +89,10 @@ const Recepta = () => {
         onChange={event => onChangeHandler(event)}
       />
 
-      <label>Imię i Nazwisko</label>
+      <label className="text-lg">Imię i Nazwisko</label>
       <input
         type="text"
-        className="my-1 p-1  border border-red-400 w-full"
+        className="my-1 p-1  border border-gray-600 w-full"
         name="displayName"
         value={displayName}
         placeholder="Name"
@@ -98,10 +100,10 @@ const Recepta = () => {
         onChange={event => onChangeHandler(event)}
       />
 
-      <label>PESEL</label>
+      <label className="text-lg">PESEL</label>
       <input
         type="text"
-        className="my-1 p-1  border border-red-400 w-full"
+        className="my-1 p-1  border border-gray-600 w-full"
         name="PESEL"
         value={PESEL}
         placeholder="PESEL"
@@ -109,18 +111,18 @@ const Recepta = () => {
         onChange={event => onChangeHandler(event)}
       />
 
-      <label>Recepta</label>
+      <label className="text-lg">Recepta</label>
       <textarea
         type="text"
-        className="my-1 p-1  border border-red-400 w-full"
+        className="my-1 p-1  border border-gray-600 w-full"
         name="prescription"
         value={prescription}
         placeholder="prescription"
         id="prescription"
         onChange={event => onChangeHandler(event)}
       />
-      <button className="border border-red-400" onClick={() => sendData()}>
-        Wyślij
+      <button className="p-2 border border-gray-600" onClick={() => sendData()}>
+        WYŚLIJ
       </button>
     </div>
   );
