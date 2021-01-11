@@ -53,6 +53,10 @@ const Recepta = () => {
           date: data.getTime()
         });
     }
+    setEmail("");
+    setDisplayName("");
+    setPESEL("");
+    setprescription("");
     setError("Wyslano");
   };
 

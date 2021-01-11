@@ -27,7 +27,7 @@ const ProfilePage = props => {
                         href="#"
                         className={
                           " text-white px-3 py-2 rounded-md text-sm font-medium " +
-                          (1 ? "bg-gray-700" : "")
+                          (props.active == "/" ? "bg-gray-700" : "")
                         }
                       >
                         Dashboard
@@ -38,7 +38,7 @@ const ProfilePage = props => {
                         href="#"
                         className={
                           " text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium " +
-                          (false ? "bg-gray-700" : "")
+                          (props.active == "/doctors" ? "bg-gray-700" : "")
                         }
                       >
                         Doctors
@@ -47,7 +47,12 @@ const ProfilePage = props => {
                     <Link to="/prescriptions">
                       <a
                         href="#"
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                        className={
+                          " text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium " +
+                          (props.active == "/prescriptions"
+                            ? "bg-gray-700"
+                            : "")
+                        }
                       >
                         Prescriptions
                       </a>
@@ -55,7 +60,10 @@ const ProfilePage = props => {
                     <Link to="/calendar">
                       <a
                         href="#"
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                        className={
+                          " text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium " +
+                          (props.active == "/calendar" ? "bg-gray-700" : "")
+                        }
                       >
                         Calendar
                       </a>
@@ -63,7 +71,10 @@ const ProfilePage = props => {
                     <Link to="/reports">
                       <a
                         href="#"
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                        className={
+                          " text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium " +
+                          (props.active == "/reports" ? "bg-gray-700" : "")
+                        }
                       >
                         Reports
                       </a>

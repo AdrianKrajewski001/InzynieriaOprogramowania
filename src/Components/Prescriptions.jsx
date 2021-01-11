@@ -8,7 +8,7 @@ export default function Prescriptions() {
   const user = useContext(UserContext);
   let { userType } = user;
   return (
-    <ProfilePage>
+    <ProfilePage active="/prescriptions">
       {userType === "Doctor" ? <Recepta /> : <PrescriptionsList />}
     </ProfilePage>
   );

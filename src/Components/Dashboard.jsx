@@ -4,7 +4,7 @@ import ProfilePage from "./ProfilePage";
 import PatientCard from "./PatientCard";
 export default function Dashboard() {
   return (
-    <ProfilePage>
+    <ProfilePage active="/">
       <PatientCard />
     </ProfilePage>
   );
