@@ -11,7 +11,6 @@ import Prescriptions from "./Prescriptions";
 import Calendar from "./Calendar";
 import Reports from "./Reports";
 import Search from "./Search";
-import StartCheckup from "./StartCheckup"
 import Dashboard from "./Dashboard";
 import Settings from "./Settings";
 import Recepta from "./Recepta";
@@ -20,7 +19,6 @@ function Application() {
   return user ? (
     <Router>
       <Dashboard path="/" />
-      <StartCheckup path="/startcheckup" />
       <Doctors path="/doctors" />
       <Prescriptions path="/prescriptions" />
       <Calendar path="/calendar" />
