@@ -32,7 +32,7 @@ const ProfilePage = props => {
                       >
                         Dashboard
                       </a>
-					          </Link>
+                    </Link>
                     <Link to="/startcheckup">
                       <a
                         href="#"
@@ -52,7 +52,7 @@ const ProfilePage = props => {
                           (props.active == "/doctors" ? "bg-gray-700" : "")
                         }
                       >
-                        Doctors
+                        Mapa Lekarzy
                       </a>
                     </Link>
                     <Link to="/prescriptions">
@@ -65,7 +65,7 @@ const ProfilePage = props => {
                             : "")
                         }
                       >
-                        Prescriptions
+                        Recepty
                       </a>
                     </Link>
                     <Link to="/calendar">
@@ -76,7 +76,7 @@ const ProfilePage = props => {
                           (props.active == "/calendar" ? "bg-gray-700" : "")
                         }
                       >
-                        Calendar
+                        Kalendarz
                       </a>
                     </Link>
                     <Link to="/reports">
@@ -87,7 +87,7 @@ const ProfilePage = props => {
                           (props.active == "/reports" ? "bg-gray-700" : "")
                         }
                       >
-                        Reports
+                        FOO
                       </a>
                     </Link>
                   </div>
@@ -115,7 +115,7 @@ const ProfilePage = props => {
                     </div>
 
                     <div
-                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 opacity-0 hover:opacity-100"
+                      className="group origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 opacity-0 hover:opacity-100 absolute z-50"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
@@ -126,7 +126,7 @@ const ProfilePage = props => {
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           role="menuitem"
                         >
-                          Settings
+                          Ustawienia profilu
                         </a>
                       </Link>
                       <a
@@ -138,7 +138,7 @@ const ProfilePage = props => {
                           navigate("/");
                         }}
                       >
-                        Sign out
+                        Wyloguj
                       </a>
                     </div>
                   </div>
@@ -242,7 +242,7 @@ const ProfilePage = props => {
                   </div>
                 </div>
               </div>
-              <div className="mt-3 px-2 space-y-1 opacity-0 hover:opacity-100">
+              <div className="group mt-3 px-2 space-y-1 opacity-0 group-hover:opacity-100 z-50 absolute">
                 <Link to="/settings">
                   <a
                     href="#"
@@ -267,12 +267,7 @@ const ProfilePage = props => {
           </div>
         </nav>
 
-        <main>
-          {props.children}
-          {/* <h1>{displayName}</h1>
-          <h1>{email}</h1>
-          <h1>{userType}</h1> */}
-        </main>
+        <main>{props.children}</main>
       </div>
     </>
   );

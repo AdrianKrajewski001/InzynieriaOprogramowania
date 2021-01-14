@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
-import { Link } from "@reach/router";
-import { auth, signInWithGoogle, generateUserDocument } from "../firebase";
+import React, { useState } from "react";
 import { firestore } from "../firebase";
-import testowaFunkcja from "../App.js";
+import Map from "./Map";
 const Search = () => {
   let Specialization = [];
   let Doctor = [];
-  const [Doctors, SetDoctors] = useState(Doctor);
-  const [filteredUsers, setUsers] = React.useState(Specialization);
+
+  const [doctorsList, setDoctorsList] = useState([]);
+  const [doctors, SetDoctors] = useState(Doctor);
+  const [filteredUsers, setUsers] = useState(Specialization);
 
   const downloadSpecializationsFromDatabase = async () => {
     Specialization = [];
@@ -20,12 +20,12 @@ const Search = () => {
       )
       .get();
     if (snapshot.empty) {
-      console.log("No matching documents.");
+      // console.log("No matching documents.");
       return;
     }
 
     snapshot.forEach(async doc => {
-      console.log(doc.id, "=>", doc.data());
+      // console.log(doc.id, "=>", doc.data());
       await Specialization.push(doc.id);
 
       downloadDoctorsfromDatabase();
@@ -42,16 +42,19 @@ const Search = () => {
       .where("specjalizacja", "array-contains", Specialization[0]) //do poprawy
       .get();
     if (snapshot.empty) {
-      console.log("No matching documents.");
+      // console.log("No matching documents.");
       return;
     }
-
+    let temp = [];
     snapshot.forEach(async doc => {
-      console.log(doc.id, "=>", doc.data());
+      // console.log(doc.id, "=>", doc.data());
       let x = doc.data();
+
+      await temp.push(x);
 
       await Doctor.push(x.displayName);
     });
+    await setDoctorsList(temp);
     setUsers(Specialization);
     SetDoctors(Doctor);
   };
@@ -60,36 +63,48 @@ const Search = () => {
     if (users.length > 0) {
       return (
         <ul>
-          {users.map(user => (
-            <li key={user}>{user}</li>
+          {doctorsList.map(user => (
+            <li
+              className="hover:bg-gray-600 border-b-2 pb-2 mb-2"
+              key={user.displayName}
+            >
+              {user.displayName} - {user.specjalizacja.toString().toUpperCase()}
+              <div className="text-gray-200 text-xs">
+                {user.street}, {user.city}
+              </div>
+              <p>Najblizszy terminy: </p>
+            </li>
           ))}
         </ul>
       );
     }
 
-    return <p>Brak danych</p>;
+    return <p></p>;
   }
 
   return (
-    <div>
-      <div className="p-4 max-w-xs bg-gray-200 border-4 rounded-l-none rounded-tr-none rounded-lg">
-        <input className="border border-blue-400 mr-2" id="textbox" />
+    <Map doctorsList={doctorsList}>
+      <div style={{ position: "absolute", zIndex: "5" }}>
+        <div className="p-4 max-w-xs text-white bg-gray-800 border-4 border-t-0 border-l-0 rounded-l-none rounded-tr-none rounded-lg">
+          <input
+            className="border border-blue-400 mr-2 text-black uppercase"
+            id="textbox"
+          />
 
-        <button
-          className="border border-blue-500 "
-          onClick={() => downloadSpecializationsFromDatabase()}
-        >
-          Szukaj
-        </button>
+          <button
+            className=" font-bold"
+            onClick={() => downloadSpecializationsFromDatabase()}
+          >
+            SZUKAJ
+          </button>
 
-        <UsersList users={filteredUsers} />
-
-        <div>
-          <b>Lista lekarzy:</b>
+          <div>
+            <b>Lista lekarzy:</b>
+          </div>
+          <UsersList users={doctors} />
         </div>
-        <UsersList users={Doctors} />
       </div>
-    </div>
+    </Map>
   );
 };
 
