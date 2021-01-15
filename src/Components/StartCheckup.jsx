@@ -30,6 +30,8 @@ const StartCheckup = () => {
     });
   };
 
+  const arrayUnique = [...new Set(choroby.map(q => q.type))];
+
   function addCase() {
     const baza = firestore.collection("users").doc(user.uid).collection("cases")
 
@@ -90,9 +92,10 @@ const StartCheckup = () => {
       <div className="text-center">
         <h1>Choroby: &nbsp;&nbsp;&nbsp;
           <select id="showtype" onChange={changeView}>
-            <option value="0">---</option>
-            <option value="1">abc</option>
-            <option value="1">qwe</option>
+            <option>---</option>
+            {arrayUnique.map((uni) => (
+            <option>{uni}</option>
+            ))}
           </select>
         </h1>
 
