@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 import { firestore } from "../firebase";
 import Map from "./Map";
+import { create } from "domain";
+import { UserContext } from "../providers/UserProvider";
+
 const Search = () => {
+  const user = useContext(UserContext);
+  const { photoURL, displayName, email, userType } = user;
   let Specialization = [];
   let Doctor = [];
 
@@ -59,21 +66,73 @@ const Search = () => {
     SetDoctors(Doctor);
   };
 
+  const createAppointment = (doctorEmail, date) => {
+    let data = new Date();
+    firestore
+      .collection("appointments")
+      .doc(data.getTime().toString())
+      .set({
+        doctorEmail,
+        patientEmail: email,
+        date,
+        done: false,
+        accepted: false
+      });
+  };
+
   function UsersList({ users }) {
     if (users.length > 0) {
       return (
         <ul>
+          {console.log(doctorsList)}
           {doctorsList.map(user => (
-            <li
-              className="hover:bg-gray-600 border-b-2 pb-2 mb-2"
-              key={user.displayName}
+            <Popup
+              trigger={open => (
+                <li
+                  className="hover:bg-gray-600 border-b-2 pb-2 mb-2"
+                  key={user.displayName}
+                >
+                  {user.displayName} -{" "}
+                  {user.specjalizacja.toString().toUpperCase()}
+                  <div className="text-gray-200 text-xs">
+                    {user.street}, {user.city}
+                  </div>
+                </li>
+              )}
+              modal
+              nested
             >
-              {user.displayName} - {user.specjalizacja.toString().toUpperCase()}
-              <div className="text-gray-200 text-xs">
-                {user.street}, {user.city}
-              </div>
-              <p>Najblizszy terminy: </p>
-            </li>
+              {close => (
+                <div className="p-2">
+                  <p className="m-2">Lekarz: {user.displayName}</p>
+                  <p className="m-2">
+                    Specjalizacja: {user.specjalizacja.toString().toUpperCase()}
+                  </p>
+                  <p className="m-2">
+                    Wolny termin:
+                    <select
+                      name="appointments"
+                      id="appointments"
+                      form="appointments"
+                    >
+                      {user.freeAppointment.map(app => {
+                        return <option value={app}>{app}</option>;
+                      })}
+                    </select>
+                  </p>
+                  <button
+                    className="bg-gray-300 rounded-sm p-2 border-black-1 m-4 ml-2"
+                    onClick={() => {
+                      createAppointment(user.email, user.freeAppointment[0]);
+                      close();
+                      alert("Wizyta oczekuje na akceptacje lekarza");
+                    }}
+                  >
+                    UMÓW SIĘ NA WIZYTĘ
+                  </button>
+                </div>
+              )}
+            </Popup>
           ))}
         </ul>
       );

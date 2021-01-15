@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 import Doctors from "./Doctors";
-
+// $hover ? "opacity-0" : ""
 const Marker = ({ text, $hover }) => (
-  <div className={$hover ? "opacity-0" : ""}>
+  <div className="">
     <img
       src="marker.png"
       style={{
@@ -45,7 +45,13 @@ export default function Map(props) {
   const addMarker = (lat_, lng_, name) => {
     setMarkers([...markers, { lat: lat_, lng: lng_, name: name }]);
   };
+  const MarkersList = () => {
+    return markers.map((marker, id) => {
+      return <Marker lat={marker.lat} lng={marker.lng} text={marker.name} />;
+    });
+  };
   const showOnMap = async () => {
+    setMarkers([]);
     props.doctorsList.map(async doctor => {
       let coords = await getCoordinatesFromAddress(doctor.street, doctor.city);
       addMarker(coords.lat, coords.lng, "TEST");
@@ -58,7 +64,7 @@ export default function Map(props) {
   return (
     <>
       {props.children}
-      {console.log(markers)}
+
       <div
         style={{
           height: "95%",

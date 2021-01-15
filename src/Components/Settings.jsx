@@ -90,7 +90,7 @@ export default function Settings() {
             />
 
             <label htmlFor="userType" className="block">
-              Who are you?
+              Kim jesteś
             </label>
 
             <input
@@ -102,7 +102,7 @@ export default function Settings() {
               id="patient"
               onChange={event => onChangeHandler(event)}
             />
-            <label>Patient</label>
+            <label>Pacjent</label>
 
             <input
               checked={userType_ === "Doctor" ? true : false}
@@ -112,21 +112,28 @@ export default function Settings() {
               placeholder="Doctor"
               id="doctor"
               onChange={event => onChangeHandler(event)}
+              className="ml-4"
             />
 
-            <label>Doctor</label>
-            <label htmlFor="age" className="block">
-              Age:
-            </label>
-            <input
-              type="data"
-              className="my-1 p-1 w-full "
-              name="age"
-              value={age_}
-              placeholder="Age"
-              id="age"
-              onChange={event => onChangeHandler(event)}
-            />
+            <label>Doktor</label>
+            {userType_ === "Patient" ? (
+              <>
+                <label htmlFor="age" className="block">
+                  Age:
+                </label>
+                <input
+                  type="data"
+                  className="my-1 p-1 w-full "
+                  name="age"
+                  value={age_}
+                  placeholder="Age"
+                  id="age"
+                  onChange={event => onChangeHandler(event)}
+                />
+              </>
+            ) : (
+              <></>
+            )}
             <label htmlFor="street" className="block">
               Address:
             </label>
