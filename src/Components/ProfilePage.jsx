@@ -44,17 +44,22 @@ const ProfilePage = props => {
                         Start checkup
                       </a>
                     </Link>
-                    <Link to="/doctors">
-                      <a
-                        href="#"
-                        className={
-                          " text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium " +
-                          (props.active == "/doctors" ? "bg-gray-700" : "")
-                        }
-                      >
-                        Mapa Lekarzy
-                      </a>
-                    </Link>
+                    {userType === "Patient" ? (
+                      <Link to="/doctors">
+                        <a
+                          href="#"
+                          className={
+                            " text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium " +
+                            (props.active == "/doctors" ? "bg-gray-700" : "")
+                          }
+                        >
+                          Mapa Lekarzy
+                        </a>
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+
                     <Link to="/prescriptions">
                       <a
                         href="#"
