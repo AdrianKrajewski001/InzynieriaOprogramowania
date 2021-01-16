@@ -8,7 +8,7 @@ import { UserContext } from "../providers/UserProvider";
 
 const Search = () => {
   const user = useContext(UserContext);
-  const { photoURL, displayName, email, userType } = user;
+  const { photoURL, displayName, email, userType, age, street, city } = user;
   let Specialization = [];
   let Doctor = [];
 
@@ -67,7 +67,14 @@ const Search = () => {
     SetDoctors(Doctor);
   };
 
-  const createAppointment = (doctorEmail, doctorName, spec, date) => {
+  const createAppointment = (
+    doctorEmail,
+    doctorName,
+    spec,
+    date,
+    street,
+    city
+  ) => {
     let data = new Date();
     firestore
       .collection("appointments")
@@ -79,7 +86,11 @@ const Search = () => {
         done: false,
         accepted: false,
         specjalizacja: spec,
-        doctorName
+        doctorName,
+        patientName: displayName,
+        patientAge: age,
+        doctorStreet: street,
+        doctorCity: city
       });
   };
 
@@ -137,7 +148,9 @@ const Search = () => {
                         user.email,
                         user.displayName,
                         user.specjalizacja[0],
-                        option
+                        option,
+                        user.street,
+                        user.city
                       );
                       close();
                       alert("Wizyta oczekuje na akceptacje lekarza");
