@@ -15,6 +15,7 @@ const Search = () => {
   const [doctorsList, setDoctorsList] = useState([]);
   const [doctors, SetDoctors] = useState(Doctor);
   const [filteredUsers, setUsers] = useState(Specialization);
+  const [option, setOption] = useState("");
 
   const downloadSpecializationsFromDatabase = async () => {
     Specialization = [];
@@ -66,7 +67,7 @@ const Search = () => {
     SetDoctors(Doctor);
   };
 
-  const createAppointment = (doctorEmail, date) => {
+  const createAppointment = (doctorEmail, doctorName, spec, date) => {
     let data = new Date();
     firestore
       .collection("appointments")
@@ -76,7 +77,9 @@ const Search = () => {
         patientEmail: email,
         date,
         done: false,
-        accepted: false
+        accepted: false,
+        specjalizacja: spec,
+        doctorName
       });
   };
 
@@ -114,7 +117,14 @@ const Search = () => {
                       name="appointments"
                       id="appointments"
                       form="appointments"
+                      onChange={e => {
+                        e.preventDefault();
+                        setOption(e.target.value);
+                      }}
                     >
+                      <option value={user.freeAppointment[0]}>
+                        Wybierz datę
+                      </option>
                       {user.freeAppointment.map(app => {
                         return <option value={app}>{app}</option>;
                       })}
@@ -123,7 +133,12 @@ const Search = () => {
                   <button
                     className="bg-gray-300 rounded-sm p-2 border-black-1 m-4 ml-2"
                     onClick={() => {
-                      createAppointment(user.email, user.freeAppointment[0]);
+                      createAppointment(
+                        user.email,
+                        user.displayName,
+                        user.specjalizacja[0],
+                        option
+                      );
                       close();
                       alert("Wizyta oczekuje na akceptacje lekarza");
                     }}

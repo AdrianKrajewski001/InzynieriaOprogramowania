@@ -13,7 +13,8 @@ export default function Settings() {
     age,
     street,
     city,
-    uid
+    uid,
+    specjalizacja
   } = user;
   const [email_, setEmail] = useState(email);
   const [photoURL_, setPhotoURL] = useState(photoURL);
@@ -22,6 +23,7 @@ export default function Settings() {
   const [age_, setAge] = useState(age);
   const [street_, setStreet] = useState(street);
   const [city_, setCity] = useState(city);
+  const [specjalizacja_, setSpecjalizacja] = useState(specjalizacja);
 
   const uploadChanges = e => {
     e.preventDefault();
@@ -30,7 +32,7 @@ export default function Settings() {
       .doc(uid)
       .set({
         displayName: displayName_,
-        email: email_,
+        email: email,
         userType: userType_,
         age: age_,
         street: street_,
@@ -74,18 +76,6 @@ export default function Settings() {
               value={displayName_}
               placeholder="Name"
               id="displayName"
-              onChange={event => onChangeHandler(event)}
-            />
-            <label htmlFor="userEmail" className="block">
-              Email:
-            </label>
-            <input
-              type="email"
-              className="my-1 p-1 w-full"
-              name="userEmail"
-              value={email_}
-              placeholder="Email"
-              id="userEmail"
               onChange={event => onChangeHandler(event)}
             />
 
@@ -132,7 +122,20 @@ export default function Settings() {
                 />
               </>
             ) : (
-              <></>
+              <>
+                <label htmlFor="specjalizacja" className="block">
+                  Specjalizacja:
+                </label>
+                <input
+                  type="data"
+                  className="my-1 p-1 w-full "
+                  name="specjalizacja"
+                  value={specjalizacja_}
+                  placeholder="Specjalizacja"
+                  id="specjalizacja"
+                  onChange={event => onChangeHandler(event)}
+                />
+              </>
             )}
             <label htmlFor="street" className="block">
               Address:

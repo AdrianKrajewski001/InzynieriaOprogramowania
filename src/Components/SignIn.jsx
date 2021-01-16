@@ -28,7 +28,7 @@ const SignIn = () => {
 
   return (
     <div className="mt-8">
-      <h1 className="text-3xl mb-2 text-center font-bold">Sign In</h1>
+      <h1 className="text-3xl mb-2 text-center font-bold">Zaloguj się</h1>
       <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
         {error !== null && (
           <div className="py-4 bg-red-600 w-full text-white text-center mb-3">
@@ -49,14 +49,14 @@ const SignIn = () => {
             onChange={event => onChangeHandler(event)}
           />
           <label htmlFor="userPassword" className="block">
-            Password:
+            Hasło:
           </label>
           <input
             type="password"
             className="mt-1 mb-3 p-1 w-full"
             name="userPassword"
             value={password}
-            placeholder="Password"
+            placeholder="Hasło"
             id="userPassword"
             onChange={event => onChangeHandler(event)}
           />
@@ -66,7 +66,7 @@ const SignIn = () => {
               signInWithEmailAndPasswordHandler(event, email, password);
             }}
           >
-            Sign in
+            Zaloguj się
           </button>
         </form>
         <p className="text-center my-3">or</p>
@@ -76,19 +76,19 @@ const SignIn = () => {
             signInWithGoogle();
           }}
         >
-          Sign in with Google
+          Konto Google
         </button>
         <p className="text-center my-3">
-          Don't have an account?{" "}
+          Nie masz konta?{" "}
           <Link to="signUp" className="text-blue-500 hover:text-blue-600">
-            Sign up here
+            Zarejestuj się tutaj
           </Link>{" "}
           <br />{" "}
           <Link
             to="passwordReset"
             className="text-blue-500 hover:text-blue-600"
           >
-            Forgot Password?
+            Zapomniałeś hasła?
           </Link>
         </p>
       </div>

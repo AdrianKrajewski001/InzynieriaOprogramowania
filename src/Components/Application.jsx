@@ -11,14 +11,16 @@ import Prescriptions from "./Prescriptions";
 import Calendar from "./Calendar";
 import Reports from "./Reports";
 import Search from "./Search";
-import StartCheckup from "./StartCheckup"
+import StartCheckup from "./StartCheckup";
 import Dashboard from "./Dashboard";
 import Settings from "./Settings";
 import Recepta from "./Recepta";
+import InitialSettings from "./InitialSettings";
 function Application() {
   const user = useContext(UserContext);
   return user ? (
     <Router>
+      <InitialSettings path="/init" />
       <Dashboard path="/" />
       <StartCheckup path="/startcheckup" />
       <Doctors path="/doctors" />
